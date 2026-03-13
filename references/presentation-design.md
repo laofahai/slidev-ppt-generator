@@ -92,6 +92,9 @@
 - 用固定 `gap`、`p-*`、`rounded-*` 形成一致风格
 - 用 `max-w-*` 控制段落宽度，避免横向过长
 - 如果文本长度不可控，可考虑 `AutoFitText`，但优先先重写文案
+- 优先使用 Markdown table，而不是手写原始 HTML table
+- 如果必须使用 HTML table，必须包含 `thead` 和 `tbody`，避免 Vue/Vite 导出警告
+- 对比类页面优先用两栏卡片或 2x2/3x2 网格，少用满屏大表格
 
 ## 生成后的自检清单
 

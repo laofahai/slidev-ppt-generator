@@ -111,6 +111,12 @@ npm install
 
 `export.js` 会在当前项目目录缺少导出依赖时自动安装 `playwright-chromium`，不要装到全局环境。
 
+如果最终目标包含 `PDF` 或 `PPTX`，优先直接初始化带导出依赖的项目，不要等到导出报错后再补装：
+
+```bash
+node scripts/init-project.js --dir ~/slidev-ppt --with-export-deps
+```
+
 ### 3. 生成或更新 slides.md
 
 用脚本先生成基础内容，再按用户需求补充细节：
@@ -177,6 +183,10 @@ npx slidev build --out dist
 - 避免连续多页只有一句口号；金句页最多 1-2 页
 - 文案要具体，尽量使用真实名词、平台名、模块名、能力名，不要全是抽象形容词
 - 如果主题偏技术或产品介绍，优先让内容看起来像“能去讲”的正式分享，而不是 AI 自动摘要
+- 优先使用 Markdown 原生结构与 Slidev 布局，不要为了排版方便滥写原始 HTML
+- 表格优先使用 Markdown table；只有在 Markdown table 明显无法表达时，才考虑 HTML table
+- 如果必须使用 HTML table，必须写完整结构：`<table><thead>...<tbody>...</tbody></table>`，禁止直接把 `<tr>` 放在 `<table>` 下
+- 信息对比优先使用卡片网格、双栏或 Markdown table，不要把一整页堆成大而密的 HTML 表格
 
 生成正式演示稿前，必须阅读 [references/presentation-design.md](references/presentation-design.md)，并按其中的密度控制、层级、留白和溢出控制规则执行。
 
@@ -213,6 +223,8 @@ npx slidev build --out dist
 
 如果用户直接指定主题名，优先满足用户要求；否则由 skill 按上面的映射自动判断。
 
+不要为了“选择主题”额外搜索网络。官方主题映射已经足够稳定，直接按映射执行即可。
+
 ## 语言参数
 
 语言参数同样应由当前任务决定，而不是写死在 skill 里：
@@ -236,6 +248,7 @@ npx slidev build --out dist
 4. 是否有明显超长段落或卡片过高
 5. 最后一页、架构页、双栏页是否存在溢出风险
 6. 是否出现中英混杂、术语翻译前后不一致
+7. 是否写入了不规范 HTML，尤其是缺少 `<thead>` / `<tbody>` 的表格结构
 
 如果要交付 PDF/PPTX，优先先导出 PDF 检查版式，再继续导出其他格式。
 
