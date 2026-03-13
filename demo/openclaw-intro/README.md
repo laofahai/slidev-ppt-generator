@@ -20,6 +20,10 @@
 - 本次 demo 由 OpenClaw 真实触发生成，不是手工拼装
 - 生成路径来自 OpenClaw 工作区中的 `openclaw-intro/` 项目
 - 导出依赖按最佳实践安装在项目目录，而不是全局环境
+- 当前仓库内产物对应最新一次正式测试：
+  - `slides.md` 约 `8.5K`
+  - `openclaw-intro.pdf` 约 `1.1M`
+  - `openclaw-intro.pptx` 约 `1.5M`
 
 本次测试走的是正式用户路径：
 
