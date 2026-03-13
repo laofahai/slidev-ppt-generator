@@ -1,5 +1,5 @@
 ---
-theme: default
+theme: seriph
 background: '#0a0a0a'
 class: text-left
 highlighter: shiki
@@ -9,15 +9,22 @@ fonts:
   sans: 'Noto Sans SC'
   mono: 'Fira Code'
 download: true
+title: OpenClaw 自托管 AI Agent 网关
 ---
 
-# OpenClaw 自托管 AI Agent 网关
+# OpenClaw
 
-## 技术架构与最佳实践
+## 自托管 AI Agent 网关
 
-<div class="mt-8 text-gray-400 text-sm">
+<div class="mt-12 text-gray-400">
 
-自托管 · 多渠道 · Agent 原生 · 本地优先
+**技术架构 · 工作流 · 适用场景 · 本地优先价值**
+
+</div>
+
+<div class="mt-24 text-sm text-gray-500">
+
+docs.openclaw.ai · github.com/openclaw/openclaw
 
 </div>
 
@@ -27,55 +34,84 @@ layout: two-cols
 
 ## 什么是 OpenClaw？
 
-**自托管网关**：连接聊天应用到 AI Agent 的桥梁
+<div class="mt-6 text-sm leading-relaxed">
 
-<div class="mt-6 space-y-3 text-sm">
+OpenClaw 是一个**自托管网关**，连接您的聊天应用到 AI Agent。
 
-✓ 运行在您自己的机器上
+运行在您自己的机器上，单一进程同时服务多个聊天渠道，数据完全本地化。
 
-✓ 单一进程服务多个渠道
+</div>
 
-✓ 数据完全本地化
+<div class="mt-8">
 
-✓ 直接调用本地/云端模型
+### 核心价值
+
+<div class="mt-4 space-y-3 text-sm">
+
+<div class="flex items-center gap-2">
+  <span class="text-green-400">✓</span>
+  <span>数据不离开本地</span>
+</div>
+<div class="flex items-center gap-2">
+  <span class="text-green-400">✓</span>
+  <span>响应延迟 < 100ms</span>
+</div>
+<div class="flex items-center gap-2">
+  <span class="text-green-400">✓</span>
+  <span>核心功能离线可用</span>
+</div>
+<div class="flex items-center gap-2">
+  <span class="text-green-400">✓</span>
+  <span>深度定制 (Skills/Agents)</span>
+</div>
+
+</div>
 
 </div>
 
 ::right::
 
-## 核心价值
+## 支持的渠道
 
-<div class="grid grid-cols-2 gap-4 mt-6">
+<div class="mt-6 grid grid-cols-2 gap-3 text-sm">
 
-<div class="bg-blue-900/20 p-3 rounded border border-blue-500/30">
+<div class="bg-gray-800/50 p-3 rounded">
 
-**安全可控**
+**即时通讯**
 
-数据不离开本地
-
-</div>
-
-<div class="bg-green-900/20 p-3 rounded border border-green-500/30">
-
-**低延迟**
-
-本地处理 <100ms
+- WhatsApp
+- Telegram
+- Discord
 
 </div>
 
-<div class="bg-purple-900/20 p-3 rounded border border-purple-500/30">
+<div class="bg-gray-800/50 p-3 rounded">
 
-**可定制**
+**企业协同**
 
-Skills 深度扩展
+- 飞书
+- 钉钉
+- 企业微信
 
 </div>
 
-<div class="bg-cyan-900/20 p-3 rounded border border-cyan-500/30">
+<div class="bg-gray-800/50 p-3 rounded">
 
-**离线可用**
+**Apple 生态**
 
-核心功能无需网络
+- iMessage
+- Mattermost
+
+</div>
+
+<div class="bg-gray-800/50 p-3 rounded">
+
+**AI Agent**
+
+- Pi
+- Codex
+- Claude Code
+- 千问 Coder
 
 </div>
 
@@ -85,11 +121,13 @@ Skills 深度扩展
 
 ## 系统架构全景
 
-<div class="grid grid-cols-3 gap-4 mt-8">
+<div class="grid grid-cols-3 gap-6 mt-12">
 
-<div class="bg-gray-800/50 p-4 rounded">
+<div class="bg-gradient-to-b from-gray-800 to-gray-900 p-6 rounded-lg border border-gray-700">
 
-### 输入层
+<div class="text-2xl mb-4">📥</div>
+<div class="text-lg font-bold mb-3">输入层</div>
+<div class="text-sm text-gray-400 space-y-2">
 
 - WhatsApp
 - Telegram
@@ -98,9 +136,13 @@ Skills 深度扩展
 
 </div>
 
-<div class="bg-blue-900/30 p-4 rounded border border-blue-500/50">
+</div>
 
-### Gateway 核心
+<div class="bg-gradient-to-b from-blue-900/50 to-blue-950/50 p-6 rounded-lg border border-blue-700/50">
+
+<div class="text-2xl mb-4">⚙️</div>
+<div class="text-lg font-bold mb-3">Gateway 核心</div>
+<div class="text-sm text-gray-300 space-y-2">
 
 - 消息路由
 - Agent 编排
@@ -109,12 +151,16 @@ Skills 深度扩展
 
 </div>
 
-<div class="bg-gray-800/50 p-4 rounded">
+</div>
 
-### 输出层
+<div class="bg-gradient-to-b from-gray-800 to-gray-900 p-6 rounded-lg border border-gray-700">
 
-- 本地模型 (Ollama)
-- 云端 API (百炼)
+<div class="text-2xl mb-4">📤</div>
+<div class="text-lg font-bold mb-3">输出层</div>
+<div class="text-sm text-gray-400 space-y-2">
+
+- Ollama 本地模型
+- 百炼/ OpenRouter API
 - 文件系统
 - 外部工具
 
@@ -122,9 +168,11 @@ Skills 深度扩展
 
 </div>
 
-<div class="mt-6 text-center text-sm text-gray-500">
+</div>
 
-单一 Gateway 进程 = 消息收发 + Agent 调度 + 技能执行 + 状态管理
+<div class="mt-8 text-center text-sm text-gray-500">
+
+**单一 Gateway 进程** = 消息收发 + Agent 调度 + 技能执行 + 状态管理
 
 </div>
 
@@ -132,18 +180,55 @@ Skills 深度扩展
 
 ## 多 Agent 路由机制
 
+<div class="text-sm mb-6">
+
 **主入口统一**：所有消息进入 `main` Agent，按意图自动分发
 
-| 子 Agent | 触发条件 | 模型策略 |
-|----------|----------|----------|
-| `main` | 默认/简单对话 | 百炼 qwen3.5-plus |
-| `mem-assistant` | MEM 备考/学习规划 | 百炼 API |
-| `governance-assistant` | 公司治理/组织/制度 | 百炼 API |
-| `codex-assistant` | 编码任务 | Claude Code → Codex → 千问 Coder |
-| `gemini-assistant` | 中长分析 (只读) | Gemini CLI |
-| `scout` | 信息收集/事实核实 | 百炼 API |
+</div>
 
-<div class="mt-6 text-sm text-gray-400">
+<table class="w-full text-sm">
+<thead>
+<tr class="border-b border-gray-700">
+  <th class="text-left py-2">Agent</th>
+  <th class="text-left py-2">触发条件</th>
+  <th class="text-left py-2">模型策略</th>
+</tr>
+</thead>
+<tbody class="text-gray-300">
+<tr class="border-b border-gray-800">
+  <td class="py-3"><code class="text-blue-400">main</code></td>
+  <td>默认/简单对话</td>
+  <td>百炼 qwen3.5-plus</td>
+</tr>
+<tr class="border-b border-gray-800">
+  <td class="py-3"><code class="text-blue-400">mem-assistant</code></td>
+  <td>MEM 备考/学习规划</td>
+  <td>百炼 API</td>
+</tr>
+<tr class="border-b border-gray-800">
+  <td class="py-3"><code class="text-blue-400">governance-assistant</code></td>
+  <td>公司治理/组织/制度</td>
+  <td>百炼 API</td>
+</tr>
+<tr class="border-b border-gray-800">
+  <td class="py-3"><code class="text-blue-400">codex-assistant</code></td>
+  <td>编码任务</td>
+  <td>Claude Code → Codex → 千问 Coder</td>
+</tr>
+<tr class="border-b border-gray-800">
+  <td class="py-3"><code class="text-blue-400">gemini-assistant</code></td>
+  <td>中长分析 (只读)</td>
+  <td>Gemini CLI</td>
+</tr>
+<tr>
+  <td class="py-3"><code class="text-blue-400">scout</code></td>
+  <td>信息收集/事实核实</td>
+  <td>百炼 API</td>
+</tr>
+</tbody>
+</table>
+
+<div class="mt-6 text-xs text-gray-500">
 
 **Fallback 链**：Claude Code CLI (5h/天) → Codex CLI → qwen3-coder-next → qwen3-coder-plus → glm-5
 
@@ -155,30 +240,48 @@ layout: two-cols
 
 ## 编码任务工作流
 
+<div class="mt-4">
+
 ### 强制规则
 
-<div class="text-sm space-y-3 mt-4">
+<div class="mt-4 space-y-4 text-sm">
 
-1. **Context7 MCP 强制查询**
+<div class="bg-gray-800/50 p-3 rounded border-l-4 border-blue-500">
 
-   写代码前必须查官方文档
+**1. Context7 MCP 强制查询**
 
-2. **CLI Agent 优先**
+写代码前必须查询官方文档
 
-   Claude Code / Codex CLI
+</div>
 
-3. **Gemini 禁用编码**
+<div class="bg-gray-800/50 p-3 rounded border-l-4 border-green-500">
 
-   只读，不能写文件/执行命令
+**2. CLI Agent 优先**
+
+Claude Code / Codex CLI (5 小时/天)
+
+</div>
+
+<div class="bg-gray-800/50 p-3 rounded border-l-4 border-red-500">
+
+**3. Gemini 禁用编码**
+
+只读，不能写文件/执行命令
+
+</div>
+
+</div>
 
 </div>
 
 ::right::
 
-### 执行流程
+## 执行流程
+
+<div class="mt-6 text-sm">
 
 ```mermaid
-graph LR
+graph TD
   A[用户请求] --> B{编码任务？}
   B -->|是 | C[Context7 查文档]
   B -->|否 | D[直接处理]
@@ -187,17 +290,32 @@ graph LR
   F -->|否 | G[降级到 Codex]
   G --> H{成功？}
   H -->|否 | I[千问 Coder API]
+  
+  style A fill:#1f2937,stroke:#374151
+  style B fill:#1f2937,stroke:#374151
+  style C fill:#1f2937,stroke:#374151
+  style E fill:#1f2937,stroke:#374151
+  style F fill:#1f2937,stroke:#374151
+  style G fill:#1f2937,stroke:#374151
+  style H fill:#1f2937,stroke:#374151
+  style I fill:#1f2937,stroke:#374151
 ```
+
+</div>
 
 ---
 
 ## 技能 (Skills) 体系
 
-**已安装 13 个核心技能**
+<div class="text-sm mb-6">
 
-<div class="grid grid-cols-3 gap-3 mt-6 text-xs">
+**已安装 13 个核心技能**，覆盖搜索、检索、备份、自动化等场景
 
-<div class="bg-gray-800/50 p-2 rounded">
+</div>
+
+<div class="grid grid-cols-4 gap-3">
+
+<div class="bg-gray-800/50 p-3 rounded text-xs">
 
 **baidu-web-search**
 
@@ -205,7 +323,7 @@ graph LR
 
 </div>
 
-<div class="bg-gray-800/50 p-2 rounded">
+<div class="bg-gray-800/50 p-3 rounded text-xs">
 
 **qmd**
 
@@ -213,7 +331,7 @@ graph LR
 
 </div>
 
-<div class="bg-gray-800/50 p-2 rounded">
+<div class="bg-gray-800/50 p-3 rounded text-xs">
 
 **openclaw-backup**
 
@@ -221,7 +339,7 @@ graph LR
 
 </div>
 
-<div class="bg-gray-800/50 p-2 rounded">
+<div class="bg-gray-800/50 p-3 rounded text-xs">
 
 **agent-browser**
 
@@ -229,7 +347,7 @@ graph LR
 
 </div>
 
-<div class="bg-gray-800/50 p-2 rounded">
+<div class="bg-gray-800/50 p-3 rounded text-xs">
 
 **self-improving**
 
@@ -237,7 +355,7 @@ graph LR
 
 </div>
 
-<div class="bg-gray-800/50 p-2 rounded">
+<div class="bg-gray-800/50 p-3 rounded text-xs">
 
 **skill-vetter**
 
@@ -245,7 +363,7 @@ graph LR
 
 </div>
 
-<div class="bg-gray-800/50 p-2 rounded">
+<div class="bg-gray-800/50 p-3 rounded text-xs">
 
 **summarize**
 
@@ -253,7 +371,7 @@ URL/文件摘要
 
 </div>
 
-<div class="bg-gray-800/50 p-2 rounded">
+<div class="bg-gray-800/50 p-3 rounded text-xs">
 
 **humanizer-zh**
 
@@ -261,7 +379,7 @@ URL/文件摘要
 
 </div>
 
-<div class="bg-gray-800/50 p-2 rounded">
+<div class="bg-gray-800/50 p-3 rounded text-xs">
 
 **github**
 
@@ -269,7 +387,7 @@ GitHub 交互
 
 </div>
 
-<div class="bg-gray-800/50 p-2 rounded">
+<div class="bg-gray-800/50 p-3 rounded text-xs">
 
 **free-ride**
 
@@ -277,7 +395,7 @@ GitHub 交互
 
 </div>
 
-<div class="bg-gray-800/50 p-2 rounded">
+<div class="bg-gray-800/50 p-3 rounded text-xs">
 
 **clawddocs**
 
@@ -285,7 +403,7 @@ GitHub 交互
 
 </div>
 
-<div class="bg-gray-800/50 p-2 rounded">
+<div class="bg-gray-800/50 p-3 rounded text-xs">
 
 **skill-9**
 
@@ -299,32 +417,65 @@ GitHub 交互
 
 ## 知识检索体系 (qmd)
 
-**索引状态**：656 文件 / 2701 向量 / 25.9 MB
+<div class="grid grid-cols-2 gap-8">
+
+<div>
+
+### 索引状态
+
+<div class="mt-4 bg-gray-800/50 p-4 rounded">
+
+<div class="text-3xl font-bold text-blue-400">656</div>
+<div class="text-sm text-gray-400">文件索引</div>
+
+<div class="mt-4 text-3xl font-bold text-green-400">2701</div>
+<div class="text-sm text-gray-400">向量嵌入</div>
+
+<div class="mt-4 text-3xl font-bold text-purple-400">25.9 MB</div>
+<div class="text-sm text-gray-400">索引大小</div>
+
+</div>
+
+</div>
+
+<div>
 
 ### 技术配置
 
-| 组件 | 选型 | 说明 |
-|------|------|------|
-| 嵌入模型 | embeddinggemma | Apple M4 GPU Metal (11.8GB) |
-| 重排序 | Qwen3-Reranker | 提升检索精度 |
-| 索引引擎 | SQLite | BM25 + 向量混合检索 |
-| 自动维护 | Cron Job | 每日 03:00 更新 |
+<table class="w-full text-sm mt-4">
+<tr class="border-b border-gray-800">
+  <td class="py-2 text-gray-400">嵌入模型</td>
+  <td class="py-2">embeddinggemma</td>
+</tr>
+<tr class="border-b border-gray-800">
+  <td class="py-2 text-gray-400">重排序</td>
+  <td class="py-2">Qwen3-Reranker</td>
+</tr>
+<tr class="border-b border-gray-800">
+  <td class="py-2 text-gray-400">索引引擎</td>
+  <td class="py-2">SQLite (BM25+ 向量)</td>
+</tr>
+<tr>
+  <td class="py-2 text-gray-400">自动维护</td>
+  <td class="py-2">每日 03:00 Cron</td>
+</tr>
+</table>
 
-### 查询命令
+### 查询示例
+
+<div class="mt-4 text-xs bg-gray-900 p-3 rounded font-mono">
 
 ```bash
-# BM25 关键词搜索
 qmd search "关键词" -c openclaw
-
-# 向量语义搜索
 qmd vsearch "语义查询" -c openclaw
-
-# 混合检索 + 重排序
 qmd query "混合查询" -c openclaw
-
-# 获取原文
-qmd get qmd://openclaw/path/to/file.md
 ```
+
+</div>
+
+</div>
+
+</div>
 
 ---
 layout: two-cols
@@ -332,120 +483,322 @@ layout: two-cols
 
 ## 典型使用场景
 
-### 开发辅助 💻
+::left::
+
+<div class="space-y-4">
+
+<div class="bg-gradient-to-r from-blue-900/30 to-blue-950/30 p-4 rounded border-l-4 border-blue-500">
+
+<div class="text-xl mb-2">💻 开发辅助</div>
+<div class="text-sm text-gray-300 space-y-1">
 
 - AI 编程 (Claude Code/Codex)
 - 代码审查/重构
 - 文档查询 (Context7)
 
-### 信息获取 📰
+</div>
+
+</div>
+
+<div class="bg-gradient-to-r from-green-900/30 to-green-950/30 p-4 rounded border-l-4 border-green-500">
+
+<div class="text-xl mb-2">📰 信息获取</div>
+<div class="text-sm text-gray-300 space-y-1">
 
 - 百度搜索 (强制)
 - 事实核查
 - 新闻聚合
 
-::right::
+</div>
 
-### 系统运维 🔧
+</div>
+
+<div class="bg-gradient-to-r from-purple-900/30 to-purple-950/30 p-4 rounded border-l-4 border-purple-500">
+
+<div class="text-xl mb-2">🔧 系统运维</div>
+<div class="text-sm text-gray-300 space-y-1">
 
 - 配置备份/恢复
 - 模型切换
 - 健康检查
 
-### 知识管理 📚
+</div>
+
+</div>
+
+</div>
+
+::right::
+
+<div class="space-y-4">
+
+<div class="bg-gradient-to-r from-cyan-900/30 to-cyan-950/30 p-4 rounded border-l-4 border-cyan-500">
+
+<div class="text-xl mb-2">📚 知识管理</div>
+<div class="text-sm text-gray-300 space-y-1">
 
 - 文档写作
 - 信息整合
 - 记忆提取
 
-### 个人助理 📅
+</div>
+
+</div>
+
+<div class="bg-gradient-to-r from-orange-900/30 to-orange-950/30 p-4 rounded border-l-4 border-orange-500">
+
+<div class="text-xl mb-2">📅 个人助理</div>
+<div class="text-sm text-gray-300 space-y-1">
 
 - 日程管理
 - MEM 学习规划
 - 周报自动生成
 
+</div>
+
+</div>
+
+</div>
+
 ---
 
 ## 本地优先 vs 云服务
 
-| 维度 | 云服务 (Claude.ai/ChatGPT) | OpenClaw 自托管 |
-|------|---------------------------|-----------------|
-| **数据隐私** | 数据在第三方服务器 | 完全本地存储 |
-| **网络依赖** | 必须在线 | 核心功能离线可用 |
-| **响应延迟** | 网络往返 + 排队 (2-10s) | 本地处理 (<100ms) |
-| **定制能力** | Prompt 级 | Skills/Agent/配置级 |
-| **成本模型** | 订阅制 ($20/月+) | 一次部署 + API 按量 |
-| **集成能力** | REST API 调用 | 本地文件/命令/数据库直连 |
-| **多 Agent** | 单会话 | 7+ Agent 自动路由 |
-| **记忆持久化** | 会话级 | 长期记忆 (OpenViking) |
+<table class="w-full text-sm">
+<thead>
+<tr class="border-b-2 border-gray-600">
+  <th class="text-left py-3">维度</th>
+  <th class="text-left py-3">云服务 (Claude.ai/ChatGPT)</th>
+  <th class="text-left py-3 text-green-400">OpenClaw 自托管</th>
+</tr>
+</thead>
+<tbody class="text-gray-300">
+<tr class="border-b border-gray-800">
+  <td class="py-3 font-medium">数据隐私</td>
+  <td class="py-3 text-red-400">数据在第三方服务器</td>
+  <td class="py-3 text-green-400">完全本地存储</td>
+</tr>
+<tr class="border-b border-gray-800">
+  <td class="py-3 font-medium">网络依赖</td>
+  <td class="py-3 text-red-400">必须在线</td>
+  <td class="py-3 text-green-400">核心功能离线可用</td>
+</tr>
+<tr class="border-b border-gray-800">
+  <td class="py-3 font-medium">响应延迟</td>
+  <td class="py-3 text-red-400">2-10 秒 (网络 + 排队)</td>
+  <td class="py-3 text-green-400">&lt; 100ms (本地处理)</td>
+</tr>
+<tr class="border-b border-gray-800">
+  <td class="py-3 font-medium">定制能力</td>
+  <td class="py-3 text-yellow-400">Prompt 级</td>
+  <td class="py-3 text-green-400">Skills/Agent/配置级</td>
+</tr>
+<tr class="border-b border-gray-800">
+  <td class="py-3 font-medium">成本模型</td>
+  <td class="py-3 text-red-400">$20/月+ 订阅制</td>
+  <td class="py-3 text-green-400">一次部署 + API 按量</td>
+</tr>
+<tr class="border-b border-gray-800">
+  <td class="py-3 font-medium">集成能力</td>
+  <td class="py-3 text-yellow-400">REST API 调用</td>
+  <td class="py-3 text-green-400">本地文件/命令/数据库直连</td>
+</tr>
+<tr class="border-b border-gray-800">
+  <td class="py-3 font-medium">多 Agent</td>
+  <td class="py-3 text-red-400">单会话</td>
+  <td class="py-3 text-green-400">7+ Agent 自动路由</td>
+</tr>
+<tr>
+  <td class="py-3 font-medium">记忆持久化</td>
+  <td class="py-3 text-red-400">会话级</td>
+  <td class="py-3 text-green-400">长期记忆 (OpenViking)</td>
+</tr>
+</tbody>
+</table>
 
 ---
 
 ## 安全与备份体系
 
+<div class="grid grid-cols-2 gap-8">
+
+<div>
+
 ### 密钥管理
 
-<div class="grid grid-cols-2 gap-4 mt-4">
+<div class="mt-4 space-y-3">
 
-<div class="bg-green-900/20 p-3 rounded border border-green-500/30">
+<div class="bg-green-900/20 p-4 rounded border border-green-500/30">
 
-**✅ SecretRef 存储**
+<div class="text-sm font-bold text-green-400 mb-2">✅ SecretRef 存储</div>
+<div class="text-xs text-gray-300">
 
 - feishu.appSecret
 - bailian.apiKey
+
+</div>
+<div class="text-xs text-gray-500 mt-2">
 
 位置：`~/.openclaw/secrets.json` (权限 600)
 
 </div>
 
-<div class="bg-gray-800/50 p-3 rounded">
+</div>
 
-**⚠️ 本地占位符**
+<div class="bg-gray-800/50 p-4 rounded border border-gray-700">
+
+<div class="text-sm font-bold text-gray-400 mb-2">⚠️ 本地占位符</div>
+<div class="text-xs text-gray-300">
 
 - ollama.apiKey
 
-位置：`openclaw.json` (本地模型无需密钥)
+</div>
+<div class="text-xs text-gray-500 mt-2">
+
+本地模型无需密钥
 
 </div>
 
 </div>
+
+</div>
+
+</div>
+
+<div>
 
 ### 自动备份
 
-- **工具**：`openclaw-backup` (6964 次下载)
-- **频率**：每日 03:00 (Cron)
-- **格式**：tar.gz (排除缓存/日志)
-- **轮转**：保留最近 7 个
-- **位置**：`~/openclaw-backups/`
+<div class="mt-4 bg-gray-800/50 p-4 rounded">
+
+<div class="text-sm space-y-3">
+
+<div class="flex justify-between">
+  <span class="text-gray-400">工具</span>
+  <span class="text-white">openclaw-backup</span>
+</div>
+<div class="flex justify-between">
+  <span class="text-gray-400">下载量</span>
+  <span class="text-green-400">6964 次 (冠军)</span>
+</div>
+<div class="flex justify-between">
+  <span class="text-gray-400">频率</span>
+  <span class="text-white">每日 03:00 (Cron)</span>
+</div>
+<div class="flex justify-between">
+  <span class="text-gray-400">格式</span>
+  <span class="text-white">tar.gz</span>
+</div>
+<div class="flex justify-between">
+  <span class="text-gray-400">轮转</span>
+  <span class="text-white">保留最近 7 个</span>
+</div>
+<div class="flex justify-between">
+  <span class="text-gray-400">位置</span>
+  <span class="text-white">~/openclaw-backups/</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
 
 ---
 
 ## 定时任务与心跳
 
+<div class="grid grid-cols-2 gap-8">
+
+<div>
+
 ### Cron 任务 (6 个)
 
-| 任务 | Schedule | 说明 |
-|------|----------|------|
-| qmd 索引更新 | `0 3 * * *` | 每日 03:00 |
-| OpenClaw 备份 | `0 3 * * *` | 每日 03:00 |
-| MEM Daily Plan | `0 9 * * 1-5` | 工作日 09:00 |
-| MEM Check-in | `0 20 * * 1-5` | 工作日 20:00 |
-| MEM Weekly Review | `0 10 * * 0` | 周日 10:00 |
-| 周报自动生成 | `0 17 * * 5` | 周五 17:00 |
+<table class="w-full text-xs mt-4">
+<thead>
+<tr class="border-b border-gray-700">
+  <th class="text-left py-2">任务</th>
+  <th class="text-left py-2">Schedule</th>
+</tr>
+</thead>
+<tbody class="text-gray-300">
+<tr class="border-b border-gray-800">
+  <td class="py-2">qmd 索引更新</td>
+  <td class="py-2 font-mono text-blue-400">0 3 * * *</td>
+</tr>
+<tr class="border-b border-gray-800">
+  <td class="py-2">OpenClaw 备份</td>
+  <td class="py-2 font-mono text-blue-400">0 3 * * *</td>
+</tr>
+<tr class="border-b border-gray-800">
+  <td class="py-2">MEM Daily Plan</td>
+  <td class="py-2 font-mono text-blue-400">0 9 * * 1-5</td>
+</tr>
+<tr class="border-b border-gray-800">
+  <td class="py-2">MEM Check-in</td>
+  <td class="py-2 font-mono text-blue-400">0 20 * * 1-5</td>
+</tr>
+<tr class="border-b border-gray-800">
+  <td class="py-2">MEM Weekly Review</td>
+  <td class="py-2 font-mono text-blue-400">0 10 * * 0</td>
+</tr>
+<tr>
+  <td class="py-2">周报自动生成</td>
+  <td class="py-2 font-mono text-blue-400">0 17 * * 5</td>
+</tr>
+</tbody>
+</table>
 
-### Heartbeat 检查 (每 30 分钟)
+</div>
 
-- qmd 索引状态
-- 密钥安全 (每周)
-- 组织治理文档 (每周)
-- 文控归档 (每周)
-- MEM 学习进度 (每 3 天)
+<div>
+
+### Heartbeat 检查
+
+<div class="mt-4 space-y-3 text-sm">
+
+<div class="bg-gray-800/50 p-3 rounded">
+
+<div class="text-xs text-gray-400 mb-1">每 30 分钟</div>
+<div class="text-white">qmd 索引状态</div>
+
+</div>
+
+<div class="bg-gray-800/50 p-3 rounded">
+
+<div class="text-xs text-gray-400 mb-1">每周</div>
+<div class="text-white">密钥安全状态</div>
+<div class="text-white">组织治理文档</div>
+<div class="text-white">文控文档归档</div>
+
+</div>
+
+<div class="bg-gray-800/50 p-3 rounded">
+
+<div class="text-xs text-gray-400 mb-1">每 3 天</div>
+<div class="text-white">MEM 学习进度</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
 
 ---
 
 ## 快速开始
 
+<div class="grid grid-cols-2 gap-8">
+
+<div>
+
 ### 安装与初始化
+
+<div class="mt-4 text-xs bg-gray-900 p-4 rounded font-mono leading-relaxed">
 
 ```bash
 # 全局安装
@@ -461,67 +814,145 @@ openclaw gateway start
 openclaw web
 ```
 
+</div>
+
+</div>
+
+<div>
+
 ### 工作区结构
+
+<div class="mt-4 text-xs bg-gray-900 p-4 rounded font-mono leading-relaxed">
 
 ```
 ~/.openclaw/workspace/
-├── AGENTS.md          # 工作区规则
-├── SOUL.md            # 助手行为准则
-├── USER.md            # 用户画像
-├── MEMORY.md          # 长期记忆
-├── HEARTBEAT.md       # 周期检查任务
-├── memory/            # 每日日志
-├── skills/            # 自定义 Skills
-└── foundation/        # 基础能力层
+├── AGENTS.md
+├── SOUL.md
+├── USER.md
+├── MEMORY.md
+├── HEARTBEAT.md
+├── memory/
+├── skills/
+└── foundation/
 ```
+
+</div>
+
+</div>
+
+</div>
+
+<div class="mt-8">
 
 ### 扩展方式
 
-1. 安装 Skills: `clawhub install <skill>`
-2. 自定义 Agent: 编辑 `~/.openclaw/agents/`
-3. 配置模型：修改 `openclaw.json`
+<div class="mt-4 grid grid-cols-3 gap-4 text-sm">
 
+<div class="bg-gray-800/50 p-3 rounded">
+
+**1. 安装 Skills**
+
+`clawhub install <skill>`
+
+</div>
+
+<div class="bg-gray-800/50 p-3 rounded">
+
+**2. 自定义 Agent**
+
+编辑 `~/.openclaw/agents/`
+
+</div>
+
+<div class="bg-gray-800/50 p-3 rounded">
+
+**3. 配置模型**
+
+修改 `openclaw.json`
+
+</div>
+
+</div>
+
+</div>
+
+---
+class: text-center
 ---
 
 # 总结
 
-## OpenClaw 的核心价值
+<div class="grid grid-cols-2 gap-12 mt-16">
 
-<div class="grid grid-cols-2 gap-6 mt-8">
+<div class="text-left">
 
-<div>
+## 技术优势
 
-### 技术优势
+<div class="mt-6 space-y-3 text-sm text-gray-300">
 
-- 自托管，数据完全本地
-- 低延迟 (<100ms)
-- 离线可用
-- 深度定制 (Skills/Agents)
+<div class="flex items-center gap-2">
+  <span class="text-green-400">✓</span>
+  <span>自托管，数据完全本地</span>
+</div>
+<div class="flex items-center gap-2">
+  <span class="text-green-400">✓</span>
+  <span>低延迟 (&lt; 100ms)</span>
+</div>
+<div class="flex items-center gap-2">
+  <span class="text-green-400">✓</span>
+  <span>离线可用</span>
+</div>
+<div class="flex items-center gap-2">
+  <span class="text-green-400">✓</span>
+  <span>深度定制 (Skills/Agents)</span>
+</div>
 
 </div>
 
-<div>
+</div>
 
-### 工程价值
+<div class="text-left">
 
-- 多 Agent 自动路由
-- 长期记忆持久化
-- 定时任务 + 心跳检查
-- 完整的备份体系
+## 工程价值
+
+<div class="mt-6 space-y-3 text-sm text-gray-300">
+
+<div class="flex items-center gap-2">
+  <span class="text-green-400">✓</span>
+  <span>多 Agent 自动路由</span>
+</div>
+<div class="flex items-center gap-2">
+  <span class="text-green-400">✓</span>
+  <span>长期记忆持久化</span>
+</div>
+<div class="flex items-center gap-2">
+  <span class="text-green-400">✓</span>
+  <span>定时任务 + 心跳检查</span>
+</div>
+<div class="flex items-center gap-2">
+  <span class="text-green-400">✓</span>
+  <span>完整的备份体系</span>
+</div>
+
+</div>
 
 </div>
 
 </div>
 
-<div class="mt-12 text-center">
+<div class="mt-24">
 
 ### 开始使用
+
+<div class="mt-6 text-lg">
 
 **文档**：docs.openclaw.ai  
 **GitHub**：github.com/openclaw/openclaw  
 **Skills**：clawhub.com
 
-<div class="mt-6 text-gray-500 text-sm">
+</div>
+
+<div class="mt-12 text-gray-600 text-sm">
 
 🦞 EXFOLIATE! EXFOLIATE!
 
