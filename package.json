@@ -35,6 +35,7 @@
   "files": [
     "SKILL.md",
     "scripts/",
+    "references/",
     "templates/",
     "examples/",
     "README.md"

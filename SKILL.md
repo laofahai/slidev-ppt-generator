@@ -52,6 +52,7 @@ metadata:
 4. 语言：`auto` / `zh` / `en`
 5. 最终交付：预览、HTML、PDF、PPTX
 6. 表达风格：`formal` / `executive` / `technical` / `launch`
+7. 官方主题偏好：自动判断，或用户明确指定 `default` / `seriph` / `apple-basic`
 
 如果用户只说“做一个 PPT”，默认：
 
@@ -60,6 +61,7 @@ metadata:
 - 语言：`auto`
 - 输出：先生成 `slides.md`，再询问是否要导出
 - 表达风格：`formal`
+- 主题：自动判断
 
 语言规则：
 
@@ -79,7 +81,7 @@ metadata:
 ls ~/slidev-ppt/package.json ~/slidev-ppt/slides.md
 ```
 
-若不存在，则初始化。优先使用仓库内脚本自动创建本地项目并安装项目内依赖：
+若不存在，则初始化。优先使用仓库内脚本自动创建本地项目并安装项目内依赖与官方主题：
 
 ```bash
 node scripts/init-project.js --dir ~/slidev-ppt
@@ -99,6 +101,14 @@ cd ~/slidev-ppt
 npm install
 ```
 
+初始化脚本默认安装这些官方主题，供 skill 自动选择：
+
+- `@slidev/theme-default`
+- `@slidev/theme-seriph`
+- `@slidev/theme-apple-basic`
+- `@slidev/theme-bricks`
+- `@slidev/theme-shibainu`
+
 `export.js` 会在当前项目目录缺少导出依赖时自动安装 `playwright-chromium`，不要装到全局环境。
 
 ### 3. 生成或更新 slides.md
@@ -109,6 +119,7 @@ npm install
 node scripts/generate.js \
   --topic "OpenClaw 介绍" \
   --style tech \
+  --tone technical \
   --pages 10 \
   --author "你的名字" \
   --output ~/slidev-ppt/slides.md
@@ -185,6 +196,22 @@ npx slidev build --out dist
 如果用户没有指定，默认使用 `formal`。  
 如果用户明确说“极简科技感”“更像发布会”，再切到 `launch`。  
 如果用户明确说“讲架构”“技术分享”，优先 `technical`。
+
+## 官方主题选择
+
+优先使用官方主题，不要先发明自定义主题。推荐映射：
+
+- `technical` -> `default`
+- `formal` -> `apple-basic`
+- `executive` -> `seriph`
+- `launch` -> `apple-basic`
+
+只有当用户明确要求更俏皮、更强视觉实验时，才考虑：
+
+- `bricks`
+- `shibainu`
+
+如果用户直接指定主题名，优先满足用户要求；否则由 skill 按上面的映射自动判断。
 
 ## 语言参数
 

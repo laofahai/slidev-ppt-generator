@@ -9,6 +9,7 @@ function parseArgs(args) {
   const options = {
     dir: path.join(os.homedir(), 'slidev-ppt'),
     withExportDeps: false,
+    installAllOfficialThemes: true,
   };
 
   for (let i = 0; i < args.length; i++) {
@@ -19,6 +20,9 @@ function parseArgs(args) {
         break;
       case '--with-export-deps':
         options.withExportDeps = true;
+        break;
+      case '--no-official-themes':
+        options.installAllOfficialThemes = false;
         break;
     }
   }
@@ -73,13 +77,19 @@ function ensureSlides(projectDir) {
   }
 
   const starter = `---
-theme: default
+theme: apple-basic
 title: Slidev Presentation
+layout: cover
 ---
 
 # Slidev Presentation
 
-准备开始
+生成前请根据任务选择官方主题：
+
+- technical -> default
+- formal -> apple-basic
+- executive -> seriph
+- launch -> apple-basic
 `;
 
   fs.writeFileSync(slidesPath, starter, 'utf8');
@@ -92,11 +102,19 @@ function main() {
   console.log(`📁 项目目录：${projectDir}`);
   ensureDir(projectDir);
   ensurePackageJson(projectDir);
-  ensureDeps(projectDir, [
-    '@slidev/cli',
+  const baseDeps = ['@slidev/cli'];
+  const officialThemes = [
     '@slidev/theme-default',
     '@slidev/theme-seriph',
-  ]);
+    '@slidev/theme-apple-basic',
+    '@slidev/theme-bricks',
+    '@slidev/theme-shibainu',
+  ];
+
+  ensureDeps(
+    projectDir,
+    options.installAllOfficialThemes ? [...baseDeps, ...officialThemes] : baseDeps,
+  );
 
   if (options.withExportDeps) {
     ensureDeps(projectDir, ['playwright-chromium']);
@@ -106,6 +124,9 @@ function main() {
 
   console.log('✅ Slidev 项目已就绪');
   console.log(`   - slides.md: ${path.join(projectDir, 'slides.md')}`);
+  if (options.installAllOfficialThemes) {
+    console.log(`   - 官方主题: ${officialThemes.join(', ')}`);
+  }
 }
 
 main();

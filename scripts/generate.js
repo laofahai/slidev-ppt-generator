@@ -18,6 +18,7 @@ function parseArgs(args) {
     output: 'slides.md',
     pages: 10,
     style: 'tech',
+    tone: 'formal',
     author: 'AI Assistant'
   };
 
@@ -43,6 +44,9 @@ function parseArgs(args) {
       case '-a':
         options.author = args[++i];
         break;
+      case '--tone':
+        options.tone = args[++i];
+        break;
     }
   }
 
@@ -51,6 +55,7 @@ function parseArgs(args) {
 
 function validateOptions(options) {
   const validStyles = new Set(['tech', 'product', 'report']);
+  const validTones = new Set(['formal', 'executive', 'technical', 'launch']);
 
   if (!options.topic || !String(options.topic).trim()) {
     throw new Error('请提供主题 --topic "你的主题"');
@@ -63,6 +68,30 @@ function validateOptions(options) {
   if (!validStyles.has(options.style)) {
     throw new Error('风格必须是 tech、product 或 report');
   }
+
+  if (!validTones.has(options.tone)) {
+    throw new Error('表达风格必须是 formal、executive、technical 或 launch');
+  }
+}
+
+function resolveTheme(style, tone) {
+  if (tone === 'technical') {
+    return 'default';
+  }
+
+  if (tone === 'executive') {
+    return 'seriph';
+  }
+
+  if (tone === 'launch') {
+    return 'apple-basic';
+  }
+
+  if (style === 'report') {
+    return 'seriph';
+  }
+
+  return 'apple-basic';
 }
 
 // 生成幻灯片大纲
@@ -115,9 +144,9 @@ function generateOutline(topic, pages, style) {
 }
 
 // 构建 slides.md 内容
-function buildSlidesMarkdown(outline, style, author) {
-  const theme = style === 'tech' ? 'default' : 'seriph';
-  const colorSchema = style === 'tech' ? 'dark' : 'light';
+function buildSlidesMarkdown(outline, style, tone, author) {
+  const theme = resolveTheme(style, tone);
+  const colorSchema = tone === 'technical' ? 'dark' : 'light';
   const authorName = author || outline.author || 'AI Assistant';
 
   let content = `---
@@ -128,6 +157,8 @@ colorSchema: ${colorSchema}
 layout: cover
 title: ${outline.title}
 author: ${authorName}
+themeConfig:
+  tone: ${tone}
 ---
 
 # ${outline.title}
@@ -218,12 +249,13 @@ Slidev PPT 生成器
   -o, --output <文件>    输出文件路径（默认：slides.md）
   -p, --pages <页数>     期望页数（默认：10）
   -s, --style <风格>     风格类型：tech|product|report（默认：tech）
+  --tone <表达>          表达风格：formal|executive|technical|launch（默认：formal）
   -a, --author <作者>    作者姓名（默认：AI Assistant）
   -h, --help            显示帮助信息
 
 示例:
   node generate.js --topic "OpenClaw 介绍" --output slides.md
-  node generate.js -t "产品演示" -s product -p 15
+  node generate.js -t "产品演示" -s product --tone launch -p 15
   node generate.js -t "工作汇报" -s report -a "张三"
 `);
     process.exit(0);
@@ -240,6 +272,7 @@ Slidev PPT 生成器
 
   console.log(`🎯 生成主题：${options.topic}`);
   console.log(`📊 风格：${options.style}`);
+  console.log(`🎨 表达：${options.tone}`);
   console.log(`📄 页数：约${options.pages}页`);
   console.log(`📝 输出：${options.output}`);
   console.log('');
@@ -248,7 +281,12 @@ Slidev PPT 生成器
   const outline = generateOutline(options.topic, options.pages, options.style);
   
   // 生成 slides.md
-  const slidesContent = buildSlidesMarkdown(outline, options.style, options.author);
+  const slidesContent = buildSlidesMarkdown(
+    outline,
+    options.style,
+    options.tone,
+    options.author,
+  );
   
   // 写入文件
   const outputPath = path.resolve(options.output);

@@ -39,6 +39,17 @@
 - 不要默认改成英文，也不要把中英文混在同一页
 - 如果必须保留英文专有名词，确保其余术语在全稿中保持一致
 
+## 官方主题策略
+
+优先让 skill 从官方主题中选择，而不是临时发明新主题：
+
+- `technical` -> `default`
+- `formal` -> `apple-basic`
+- `executive` -> `seriph`
+- `launch` -> `apple-basic`
+
+只有在用户明确追求更强个性时，再考虑 `bricks` 或 `shibainu`。
+
 ## 推荐请求模板
 
 ### 中文
