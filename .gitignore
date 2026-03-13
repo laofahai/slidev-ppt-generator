@@ -5,11 +5,14 @@ node_modules/
 package-lock.json
 yarn.lock
 pnpm-lock.yaml
+!demo/openclaw-intro/package-lock.json
 
 # 输出文件
 *.pdf
 *.pptx
 *.png
+!demo/openclaw-intro/openclaw-intro.pdf
+!demo/openclaw-intro/openclaw-intro.pptx
 dist/
 slides-export.*
 
