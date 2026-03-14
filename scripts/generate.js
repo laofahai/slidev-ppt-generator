@@ -166,6 +166,7 @@ themeConfig:
 ${outline.subtitle}
 
 <div class="pt-4 text-sm opacity-80">
+${authorName}
 </div>
 
 ---

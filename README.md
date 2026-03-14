@@ -78,26 +78,6 @@ slidev build --out dist/
 
 ---
 
-## 📚 文档
-
-### 安装指南
-
-详见 [docs/install.md](docs/install.md)
-
-### 使用教程
-
-详见 [docs/usage.md](docs/usage.md)
-
-### 主题定制
-
-详见 [docs/themes.md](docs/themes.md)
-
-### API 参考
-
-详见 [docs/api.md](docs/api.md)
-
----
-
 ## 🎯 使用场景
 
 | 场景 | 推荐模板 | 推荐主题 |

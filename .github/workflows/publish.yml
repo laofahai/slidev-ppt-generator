@@ -1,0 +1,46 @@
+name: Publish to ClawHub
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install ClawHub CLI
+        run: npm install -g @clawhub/cli
+
+      - name: Authenticate with ClawHub
+        env:
+          CLAWHUB_TOKEN: ${{ secrets.CLAWHUB_TOKEN }}
+        run: clawhub login --token $CLAWHUB_TOKEN
+
+      - name: Publish Skill
+        run: |
+          clawhub publish . \
+            --slug slidev-ppt-generator \
+            --name "Slidev PPT Generator" \
+            --version ${GITHUB_REF#refs/tags/v} \
+            --description "使用 Slidev 生成和导出演示文稿" \
+            --tags "slidev,ppt,presentation,markdown,slides" \
+            --changelog "Release ${GITHUB_REF#refs/tags/v}"
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: false

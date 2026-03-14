@@ -5,7 +5,7 @@ lineNumbers: true
 colorSchema: dark
 layout: cover
 title: OpenClaw 介绍
-author: undefined
+author: AI Assistant
 ---
 
 # OpenClaw 介绍
@@ -13,6 +13,8 @@ author: undefined
 由 slidev-ppt-generator 生成
 
 <div class="pt-4 text-sm opacity-80">
+AI Assistant
+</div>
 
 ---
 layout: section
@@ -118,5 +120,5 @@ class: text-center
 ## Q&A
 
 <div class="pt-4 text-sm opacity-80">
-undefined
+AI Assistant
 </div>

@@ -3,7 +3,8 @@ name: slidev-ppt-generator
 description: 使用 Slidev 生成和导出演示文稿。仅在用户明确要 Slidev、Markdown 幻灯片、可预览的 slides.md，或需要导出 PDF/PPTX/HTML 成品时使用。遇到“乔布斯风竖屏 HTML 演示稿”不要使用本技能。
 metadata:
   openclaw:
-    emoji: "📦"
+    emoji: "📊"
+    tags: ["slidev", "ppt", "presentation", "markdown", "slides"]
     requires:
       bins: ["node", "npm"]
     platform: ["macos", "linux"]
