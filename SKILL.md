@@ -146,9 +146,9 @@ Use Unsplash direct URLs. Pick images by topic keyword:
 - **Nature/Growth**: forests, mountains, sunrise, green fields
 - **Data/Analytics**: dashboards, charts, abstract data visualization
 
-URL format: `https://images.unsplash.com/photo-{ID}?w=1920`
+URL format: `https://images.unsplash.com/photo-{ID}?auto=format&fit=crop&w=1920&q=80`
 
-Find image IDs at unsplash.com. Use specific photo IDs, not the random API (which is deprecated). Pick 3-5 images per deck and reuse them for visual consistency.
+Find image IDs at unsplash.com. Use specific photo IDs, not the old `source.unsplash.com` API (deprecated). Pick 3-5 images per deck and reuse them for visual consistency.
 
 For slides that need a background but not a photo, use CSS gradients:
 
@@ -272,7 +272,7 @@ For dark themes, use `bg-white/10` or `bg-gray-800` instead of `bg-gray-100`.
 
 ### Architecture / Flow Diagrams
 
-**Mermaid diagrams do NOT render in PDF/PPTX export.** If the user needs PDF/PPTX output, do NOT use Mermaid. Instead:
+**Mermaid diagrams may have rendering issues in PDF/PPTX export** (timing-dependent). Keep Mermaid to under ~15 nodes. For complex diagrams or maximum reliability, use card grids instead:
 
 - Use ASCII-style text diagrams in code blocks
 - Use a card-grid layout to represent components
@@ -375,9 +375,10 @@ Before generating a formal presentation, you must read [references/presentation-
 
 When the user needs PDF or PPTX output:
 
-- **Mermaid diagrams will NOT render** — use card grids or text-based diagrams instead
-- **External images must be accessible** — use full Unsplash URLs, not relative paths
-- **Animations/transitions are flattened** — do not rely on `v-click` for content structure
+- **Mermaid diagrams**: work but may have timing issues with complex diagrams (>15 nodes). Keep them simple or use card grids.
+- **Click animations**: each `v-click` step becomes a separate PDF page. Use `--per-slide` flag to get one page per slide: `npx slidev export --format pdf --per-slide`
+- **External images must be accessible** at export time — use full Unsplash URLs with `?auto=format&fit=crop&w=1920&q=80`
+- **PPTX is image-based** — each slide is a screenshot, not editable PowerPoint. Warn the user.
 - **Test with PDF first** before exporting PPTX — PDF is more reliable
 - `export.js` will auto-install `playwright-chromium` if missing
 
