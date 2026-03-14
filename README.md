@@ -1,5 +1,7 @@
 # Slidev PPT Generator
 
+🦞 **OpenClaw Skill** | 📝 **Markdown to PPT** | 🚀 **One-click Professional Slides**
+
 🦞 **OpenClaw Skill** | 📝 **Markdown 写 PPT** | 🚀 **一键生成专业幻灯片**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -7,7 +9,16 @@
 
 ---
 
-## ✨ 特性
+## ✨ Features / 特性
+
+- 🎯 **AI-Powered** - OpenClaw auto-generates content
+- 📝 **Markdown Authoring** - Create slides like writing docs
+- 🎨 **Multiple Themes** - Built-in + community themes
+- 📤 **Multi-format Export** - HTML / PDF / PPTX
+- 🔧 **Highly Customizable** - Vue components + custom styles
+- 🆓 **Completely Free** - Open-source MIT license
+
+---
 
 - 🎯 **AI 驱动** - OpenClaw 自动生成内容
 - 📝 **Markdown 编写** - 写文档一样做 PPT
@@ -18,42 +29,51 @@
 
 ---
 
-## 🚀 快速开始
+## 🚀 Quick Start / 快速开始
 
-### 1️⃣ 安装 Skill
+### 1️⃣ Install Skill / 安装 Skill
 
 ```bash
-# 通过 ClawHub 安装
+# Install via ClawHub / 通过 ClawHub 安装
 npx clawhub@latest install slidev-ppt-generator
 
-# 或手动安装
+# Or install manually / 或手动安装
 git clone https://github.com/laofahai/slidev-ppt-generator.git ~/.openclaw/skills/slidev-ppt-generator
 openclaw gateway restart
 ```
 
-### 2️⃣ 初始化 Slidev 环境
+### 2️⃣ Initialize Slidev Environment / 初始化 Slidev 环境
 
 ```bash
-# 创建项目
+# Create project / 创建项目
 npm init slidev@latest ~/slidev-ppt
 
-# 进入项目
+# Enter project / 进入项目
 cd ~/slidev-ppt
 
-# 安装依赖
+# Install dependencies / 安装依赖
 npm install
 
-# 安装 Playwright（导出 PDF/PPTX 需要）
+# Install Playwright (required for PDF/PPTX export) / 安装 Playwright（导出 PDF/PPTX 需要）
 npm i -D playwright-chromium
 ```
 
-### 3️⃣ 使用
+### 3️⃣ Usage / 使用
+
+Just say in OpenClaw:
 
 在 OpenClaw 中直接说：
 
 ```
+Make a PPT about OpenClaw introduction
 帮我做一个关于 OpenClaw 介绍的 PPT
 ```
+
+The AI will automatically:
+1. Check the Slidev environment
+2. Generate slides.md content
+3. Start the preview server
+4. Ask if you need to export
 
 AI 会自动：
 1. 检查 Slidev 环境
@@ -61,90 +81,94 @@ AI 会自动：
 3. 启动预览服务器
 4. 询问是否需要导出
 
-### 4️⃣ 导出
+### 4️⃣ Export / 导出
 
 ```bash
 cd ~/slidev-ppt
 
-# 导出 PDF
+# Export PDF / 导出 PDF
 slidev export --format pdf --output presentation.pdf
 
-# 导出 PPTX
+# Export PPTX / 导出 PPTX
 slidev export --format pptx --output presentation.pptx
 
-# 构建 HTML
+# Build HTML / 构建 HTML
 slidev build --out dist/
 ```
 
 ---
 
-## 🎯 使用场景
+## 🎯 Use Cases / 使用场景
 
-| 场景 | 推荐模板 | 推荐主题 |
+| Scenario / 场景 | Recommended Template / 推荐模板 | Recommended Theme / 推荐主题 |
 |------|----------|----------|
-| 技术分享 | tech-share | default / seriph |
-| 产品演示 | product-demo | hubro / eloc |
-| 工作汇报 | report | apple-basic |
-| 教学培训 | teaching | default |
-| 会议演讲 | conference | seriph |
+| Tech Sharing / 技术分享 | tech-share | default / seriph |
+| Product Demo / 产品演示 | product-demo | hubro / eloc |
+| Work Report / 工作汇报 | report | apple-basic |
+| Teaching & Training / 教学培训 | teaching | default |
+| Conference Talk / 会议演讲 | conference | seriph |
 
 ---
 
-## 🛠️ 脚本工具
+## 🛠️ Script Tools / 脚本工具
+
+The project includes two utility scripts:
 
 项目包含两个实用脚本：
 
-### generate.js - 内容生成
+### generate.js - Content Generation / 内容生成
 
 ```bash
-node scripts/generate.js --topic "你的主题" --output slides.md
+node scripts/generate.js --topic "Your Topic" --output slides.md
 ```
 
-**选项：**
-- `-t, --topic` - PPT 主题（必需）
-- `-o, --output` - 输出文件路径
-- `-p, --pages` - 期望页数
-- `-s, --style` - 风格：tech|product|report
-- `-a, --author` - 作者姓名
+**Options / 选项：**
+- `-t, --topic` - PPT topic (required) / PPT 主题（必需）
+- `-o, --output` - Output file path / 输出文件路径
+- `-p, --pages` - Expected page count / 期望页数
+- `-s, --style` - Style: tech|product|report / 风格：tech|product|report
+- `-a, --author` - Author name / 作者姓名
 
-### export.js - 导出封装
+### export.js - Export Wrapper / 导出封装
 
 ```bash
 node scripts/export.js --format pdf --output presentation.pdf
 ```
 
-**选项：**
-- `-f, --format` - 导出格式：pdf|pptx|png|md
-- `-o, --output` - 输出文件路径
-- `--with-clicks` - 包含动画步骤
-- `--range` - 导出指定页
+**Options / 选项：**
+- `-f, --format` - Export format: pdf|pptx|png|md / 导出格式：pdf|pptx|png|md
+- `-o, --output` - Output file path / 输出文件路径
+- `--with-clicks` - Include animation steps / 包含动画步骤
+- `--range` - Export specific pages / 导出指定页
 
 ---
 
-## 🎨 主题系统
+## 🎨 Theme System / 主题系统
 
-### 内置主题
+### Built-in Themes / 内置主题
 
-- `default` - 默认主题，适合技术分享
-- `seriph` - 优雅衬线字体，适合正式场合
+- `default` - Default theme, great for tech sharing / 默认主题，适合技术分享
+- `seriph` - Elegant serif font, suitable for formal occasions / 优雅衬线字体，适合正式场合
 
-### 社区主题
+### Community Themes / 社区主题
 
 ```bash
-# 极简风
+# Minimalist / 极简风
 npm i slidev-theme-apple-basic
 
-# 优雅风格
+# Elegant / 优雅风格
 npm i slidev-theme-eloc
 
-# 商务风格
+# Business / 商务风格
 npm i slidev-theme-hubro
 
-# 可爱风格
+# Cute / 可爱风格
 npm i slidev-theme-cosmo
 ```
 
-### 自定义主题
+### Custom Themes / 自定义主题
+
+Configure in `slides.md`:
 
 在 `slides.md` 中配置：
 
@@ -162,39 +186,39 @@ fonts:
 
 ---
 
-## 📝 Markdown 语法
+## 📝 Markdown Syntax / Markdown 语法
 
-### 分页
+### Page Breaks / 分页
 
 ```markdown
 ---
 
-# 第一页
+# Page One / 第一页
 
 ---
 
-# 第二页
+# Page Two / 第二页
 ```
 
-### 布局
+### Layouts / 布局
 
 ```markdown
 ---
 layout: two-cols
 ---
 
-# 左侧
+# Left / 左侧
 
-内容
+Content / 内容
 
 ::right::
 
-# 右侧
+# Right / 右侧
 
-内容
+Content / 内容
 ```
 
-### 代码高亮
+### Code Highlighting / 代码高亮
 
 ````markdown
 ```typescript {1|3|5-7}
@@ -204,7 +228,7 @@ function add(a: number, b: number) {
 ```
 ````
 
-### 数学公式
+### Math Formulas / 数学公式
 
 ```markdown
 $$
@@ -212,72 +236,74 @@ x = \frac{-b \pm \sqrt{b^2-4ac}}{2a}
 $$
 ```
 
-### Mermaid 图表
+### Mermaid Diagrams / Mermaid 图表
 
 ```markdown
 ```mermaid
 sequenceDiagram
-  A->>B: 消息
+  A->>B: Message / 消息
 ```
 ```
 
 ---
 
-## 🤝 贡献
+## 🤝 Contributing / 贡献
+
+Issues and PRs are welcome!
 
 欢迎提交 Issue 和 PR！
 
-### 开发环境
+### Development Environment / 开发环境
 
 ```bash
-# 克隆项目
+# Clone the project / 克隆项目
 git clone https://github.com/laofahai/slidev-ppt-generator.git
 
-# 进入目录
+# Enter directory / 进入目录
 cd slidev-ppt-generator
 
-# 安装依赖
+# Install dependencies / 安装依赖
 npm install
 
-# 测试脚本
+# Test scripts / 测试脚本
 node scripts/generate.js --topic "测试" --output test.md
 ```
 
-### 提交规范
+### Commit Conventions / 提交规范
 
-- `feat:` 新功能
-- `fix:` 修复 bug
-- `docs:` 文档更新
-- `style:` 代码格式
-- `refactor:` 重构
-- `test:` 测试
-- `chore:` 构建/工具
+- `feat:` New feature / 新功能
+- `fix:` Bug fix / 修复 bug
+- `docs:` Documentation update / 文档更新
+- `style:` Code formatting / 代码格式
+- `refactor:` Refactoring / 重构
+- `test:` Tests / 测试
+- `chore:` Build/tooling / 构建/工具
 
 ---
 
-## 📄 许可证
+## 📄 License / 许可证
 
 MIT License
 
 ---
 
-## 👤 作者
+## 👤 Author / 作者
 
 **闫志鹏 (laofahai)**
 
 - GitHub: [@laofahai](https://github.com/laofahai)
-- 公司：诸城市新起点供应链管理有限责任公司
-- 项目：LinchKit / OpenClaw Agent 体系
+- Company / 公司：诸城市新起点供应链管理有限责任公司
+- Projects / 项目：LinchKit / OpenClaw Agent 体系
 
 ---
 
-## 🔗 相关链接
+## 🔗 Links / 相关链接
 
-- [Slidev 官方文档](https://cn.sli.dev/)
+- [Slidev Documentation / Slidev 官方文档](https://cn.sli.dev/)
 - [Slidev GitHub](https://github.com/slidevjs/slidev)
-- [OpenClaw 官网](https://openclaw.ai)
-- [ClawHub 技能市场](https://clawhub.ai)
-- [主题列表](https://sli.dev/guide/theme-addon-gallery)
+- [OpenClaw Website / OpenClaw 官网](https://openclaw.ai)
+- [ClawHub Skill Market / ClawHub 技能市场](https://clawhub.ai)
+- [Theme Gallery / 主题列表](https://sli.dev/guide/theme-addon-gallery)
 
 ---
 
