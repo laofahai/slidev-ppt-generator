@@ -1,115 +1,137 @@
 # Presentation Design Notes
 
-This reference file constrains `slidev-ppt-generator` to produce output that looks like a real presentation -- not "auto-summary + default black-on-white."
+This reference constrains `slidev-ppt-generator` to produce output that looks like a real, professionally designed presentation — not a text document with slide breaks.
+
+## The #1 Rule
+
+**If a slide has no background, no layout, and no visual structure, it is not a presentation slide — it is a text document.** Every slide must have intentional visual design.
 
 ## Goals
 
 - Each slide conveys exactly one main conclusion
-- Text should be concise and precise; avoid piling up explanatory paragraphs
-- Use grids, whitespace, and hierarchy to organize information
+- Text should be concise and precise; no explanatory paragraphs
+- Use backgrounds, grids, whitespace, and hierarchy to organize information
 - Prioritize speakability over flashiness
 - Content must never overflow beyond the screen edges
+
+## Visual Hierarchy Rules
+
+### Slide Types and Their Visual Treatment
+
+| Slide Type | Must Have | Layout | Background |
+|------------|-----------|--------|------------|
+| Cover | Title, subtitle, author | `cover` | Unsplash photo (required) |
+| Section divider | Chapter title | `section` or `cover` | Gradient or photo (required) |
+| Content | One main point | `default`, `two-cols`, `image-right` | Optional |
+| Data/Stats | Key number | `fact` | Optional gradient |
+| Quote | Attribution | `quote` | Optional |
+| Architecture | Components + flow | `default` with card grid | Optional |
+| Closing | Thank you + contact | `cover` | Photo (required) |
+
+### Background Image Strategy
+
+- Pick 3-5 Unsplash photos that match the topic before writing any slides
+- Use the same photo on cover and closing for visual bookending
+- Section dividers can share a gradient or use a different photo from the set
+- Content pages are OK without backgrounds — but never more than 3 consecutive plain pages
+- For dark-background slides, add `class: text-white` to the frontmatter
+
+### Color and Contrast
+
+- Light theme (`colorSchema: light`): dark text on white/light backgrounds. Use `bg-gray-100`, `bg-blue-50` for card backgrounds.
+- Dark theme (`colorSchema: dark`): light text on dark backgrounds. Use `bg-white/10`, `bg-gray-800` for card backgrounds.
+- On photo backgrounds, the `cover` layout auto-adds a dark overlay. For other layouts on photos, manually add `class: text-white`.
 
 ## Core Rules
 
 ### 1. One Idea Per Slide
 
-- Each slide must carry only one central proposition
-- If a slide tries to cover "definition + architecture + value" at the same time, split it
-- Titles must read like conclusions, not like table-of-contents entries
-
-Good titles:
-
-- `Why chatbots cannot sustain continuous work`
-- `Four layers that make AI actually execute`
-- `Local-first is not a tech preference -- it is boundary control`
-
-Bad titles:
-
-- `What is OpenClaw`
-- `Core Features`
-- `System Overview`
+- Each slide has one central proposition
+- If a slide covers "definition + architecture + value", split it
+- Titles should read like conclusions: "Four layers make AI actually execute" not "System Overview"
 
 ### 2. Control Text Density
 
-- Keep continuous body text on a single slide to roughly 40-60 CJK characters (or ~2-3 short English sentences)
-- Each card should contain at most 2-3 lines of body text
-- Limit a single slide to no more than 6 primary blocks
-- Lists should have 3-5 items; if more, split across two slides or group them
+- Keep body text to ~2-3 short sentences or 3-5 bullet points per slide
+- Each card in a grid: max 2-3 lines
+- No more than 6 primary blocks per slide
+- Lists over 5 items: split across pages or use a grid
 
-### 3. Establish Visual Hierarchy
+### 3. Layout Variety
 
-- Title font size must be noticeably larger than body text
-- Keep only one dominant visual focal point per slide
-- Use low-contrast, muted colors for auxiliary labels, annotations, and source notes
-- Do not give every block the same font size and weight
+**Never use the same layout for more than 3 consecutive slides.** Alternate between:
+
+- `default` (standard content)
+- `two-cols` (comparison, code + explanation)
+- `image-right` (text + visual, apple-basic theme)
+- `fact` (big number or statement)
+- `quote` (testimony or principle)
+- `section` (chapter break)
+- `statement` (big idea, minimal text)
+
+A good 10-slide deck might use: cover → default → two-cols → section → fact → default → image-right → default → statement → cover(closing)
 
 ### 4. Whitespace First
 
-- Reserve at least 8%-10% safe margin on all sides
-- Maintain consistent spacing between cards
-- Important content needs breathing room around it
-- Never pad text just to "fill the screen"
+- Reserve 8-10% safe margin on all sides
+- Consistent spacing between cards (use `gap-4` or `gap-6`)
+- Important content needs breathing room
+- Never pad text to "fill the screen"
 
-### 5. Choose Appropriate Slidev Layouts
+### 5. Card Grids Over Bullet Lists
 
-Prefer:
+When you have 3-6 items to present (features, components, benefits), use a card grid instead of bullets:
 
-- `cover`
-- `default`
-- `center`
-- `end`
+```html
+<div class="grid grid-cols-2 gap-6 mt-8">
+<div class="p-6 bg-gray-100 rounded-lg">
+  <h3 class="font-bold mb-2">Title</h3>
+  <p class="text-sm opacity-75">Description</p>
+</div>
+<!-- repeat -->
+</div>
+```
 
-Use only when the content naturally fits:
+This immediately makes the slide look designed rather than drafted.
 
-- `two-cols`
-- `image-left`
-- `image-right`
-- `fact`
+### 6. Architecture Without Mermaid
 
-Do not overuse layouts. Most high-quality slides only need `default` + custom grids.
+Mermaid does not render in PDF/PPTX export. For architecture diagrams, use:
 
-### 6. Preferred Content Structures
+**Option A: Component grid** — 3-column grid with colored cards showing Input → Core → Output
 
-Prefer these proven structures:
+**Option B: Flow with arrows** — Styled divs with `→` characters between them
 
-- Problem / Consequence / Turning point
-- Compare two sides + decision conclusion
-- Four-layer architecture / Three-stage flow / Five capabilities
-- Audience / Scenario / Benefit
-- Module breakdown / Responsibility boundaries / Execution results
+**Option C: ASCII in code block** — For very technical audiences only
 
 ### 7. Overflow Control
 
-- When a title exceeds two lines, rewrite the title first instead of blindly shrinking the font
-- In two-column layouts, column heights must be roughly equal; avoid one side full and the other empty
-- Footer notes, sources, and footnotes must not push primary content off screen
-- Closing slides are especially prone to overflow: do not combine a large title, two big cards, long footnotes, and a tagline on one slide
+- Title over two lines: rewrite shorter, don't shrink font
+- Two-column layouts: both columns roughly equal height
+- Footnotes must not push content off screen
+- Closing slides: don't combine big title + cards + footnotes + tagline
 
-### 8. Slidev-Specific Recommendations
+## Slidev-Specific Tips
 
-- When using inline HTML, keep the structure simple and avoid deeply nested elements
-- Use consistent `gap`, `p-*`, `rounded-*` utilities to form a uniform style
-- Use `max-w-*` to control paragraph width and prevent overly wide lines
-- If text length is unpredictable, consider `AutoFitText`, but prefer rewriting the copy first
-- Prefer Markdown tables over hand-written raw HTML tables
-- If you must use an HTML table, always include `thead` and `tbody` to avoid Vue/Vite export warnings
-- For comparison slides, prefer two-column cards or 2x2/3x2 grids over full-screen large tables
+- UnoCSS/Tailwind classes work directly in HTML: `class="grid grid-cols-2 gap-4 mt-8"`
+- Use `<div class="abs-br m-6 text-sm opacity-50">` for bottom-right attribution
+- Use `<br>` for spacing in `fact` layouts between numbers
+- `v-click` works in preview but is flattened in PDF export — don't rely on it for content structure
 
 ## Post-Generation Checklist
 
-After finishing `slides.md`, run at least these checks:
+1. Does cover have a background image? (must be yes)
+2. Does closing page have a background? (must be yes)
+3. Any plain-white section dividers? (fix: add gradient)
+4. More than 3 consecutive bullet-list pages? (fix: insert visual layout)
+5. Any Mermaid diagrams when targeting PDF? (fix: replace with card grid)
+6. Any slide with more than 6 blocks? (fix: split)
+7. Is there at least one fact/quote/statement page? (should be yes)
+8. Do all Unsplash URLs use `?w=1920` suffix? (must be yes)
 
-1. Are there any empty slides that have only a title and almost no information?
-2. Does any slide carry more than one core proposition?
-3. Are there more than 5 parallel modules crammed onto a single slide?
-4. Are any paragraphs too wide, making them hard to read?
-5. Does the last slide overflow, feel cramped, or have too many footnotes?
-6. Do architecture slides actually explain structure, or merely list nouns?
+## Output Style
 
-## Recommended Output Style
-
-- Do not chase flashy animations
-- Aim for stability, professionalism, and speakability
-- Use a visual system that is restrained yet distinctive
-- The deck should look like it was made by someone experienced, not auto-generated
+- Stable, professional, speakable
+- Restrained but visually distinctive
+- Looks like an experienced designer made it, not auto-generated
+- Every slide has intentional layout choices, not just dumped text

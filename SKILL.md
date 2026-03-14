@@ -30,16 +30,11 @@ Generate `slides.md` using the standard Slidev workflow, then preview, build, an
 
 ## Directory Structure
 
-- `scripts/generate.js`
-  Generate a basic `slides.md` from a given topic
-- `scripts/export.js`
-  Export `pdf` / `pptx` / `png` from within a Slidev project directory
-- `templates/tech-share.md`
-  Tech-share template reference
-- `examples/demo-slides.md`
-  Example slides
-- `references/presentation-design.md`
-  Presentation design and layout rules; must be consulted when generating a formal deck
+- `scripts/generate.js` — Generate a basic `slides.md` from a given topic
+- `scripts/export.js` — Export `pdf` / `pptx` / `png` from within a Slidev project directory
+- `templates/tech-share.md` — Tech-share template reference
+- `examples/demo-slides.md` — Example slides
+- `references/presentation-design.md` — Presentation design and layout rules; must be consulted when generating a formal deck
 
 ## Standard Workflow
 
@@ -57,237 +52,389 @@ Confirm the following information first. If the user has not provided everything
 
 If the user just says "make a PPT", use these defaults:
 
-- Style: `tech`
-- Pages: `10`
-- Language: `auto`
+- Style: `tech`, Pages: `10`, Language: `auto`
 - Output: Generate `slides.md` first, then ask whether to export
-- Tone: `formal`
-- Theme: auto-detect
+- Tone: `formal`, Theme: auto-detect
 
 Language rules:
 
 - If the user explicitly requests English, the entire deck should be in English
 - If the user explicitly requests Chinese, the entire deck should be in Chinese
 - If the user does not specify, default to the primary language of the user's current message
-- Keep titles, body text, export prompts, and error messages in the same language; avoid mixing languages
+- Keep titles, body text in the same language; avoid mixing languages
 - Do not generate bilingual pages unless the user explicitly requests it
 
 ### 2. Check or Initialize Slidev Project
 
 Prefer reusing an existing Slidev project. If the user does not specify a directory, default to `~/slidev-ppt`.
 
-Check whether the project exists:
-
 ```bash
 ls ~/slidev-ppt/package.json ~/slidev-ppt/slides.md
 ```
 
-If it does not exist, initialize it. Prefer using the in-repo script to auto-create a local project and install project-level dependencies along with official themes:
+If it does not exist, initialize:
 
 ```bash
 node scripts/init-project.js --dir ~/slidev-ppt
 ```
 
-If the user explicitly requests PDF/PPTX export later, initialize with export dependencies included:
+If the user needs PDF/PPTX export, initialize with export dependencies:
 
 ```bash
 node scripts/init-project.js --dir ~/slidev-ppt --with-export-deps
 ```
 
-Equivalent manual setup:
+The init script installs these official themes: `@slidev/theme-default`, `@slidev/theme-seriph`, `@slidev/theme-apple-basic`, `@slidev/theme-bricks`, `@slidev/theme-shibainu`.
 
-```bash
-npm init slidev@latest ~/slidev-ppt
-cd ~/slidev-ppt
-npm install
-```
+### 3. Generate slides.md — The Core Step
 
-The init script installs these official themes by default for the skill to auto-select:
+**Do NOT just produce a bullet-point outline.** You are writing a complete, visually designed presentation. Before writing any slide, decide:
 
-- `@slidev/theme-default`
-- `@slidev/theme-seriph`
-- `@slidev/theme-apple-basic`
-- `@slidev/theme-bricks`
-- `@slidev/theme-shibainu`
+1. **Visual direction** — Pick a color mood and image style (dark tech, clean white, warm earth tones)
+2. **Theme** — Select based on tone (see Theme Selection below)
+3. **Background images** — Select 3-5 Unsplash images that match the topic (see Visual Recipes below)
+4. **Layout variety** — Plan which layouts to use; never use `default` for every page
 
-`export.js` will automatically install `playwright-chromium` in the current project directory if export dependencies are missing. Do not install it globally.
+Then write the complete `slides.md` directly. The `generate.js` script only produces a bare skeleton; for any real presentation you should write the file yourself with proper frontmatter, backgrounds, layouts, and styled content.
 
-If the final target includes `PDF` or `PPTX`, prefer initializing the project with export dependencies upfront rather than waiting for an export error:
-
-```bash
-node scripts/init-project.js --dir ~/slidev-ppt --with-export-deps
-```
-
-### 3. Generate or Update slides.md
-
-Use the script to generate baseline content, then refine according to user needs:
-
-```bash
-node scripts/generate.js \
-  --topic "OpenClaw Introduction" \
-  --style tech \
-  --tone technical \
-  --pages 10 \
-  --author "Your Name" \
-  --output ~/slidev-ppt/slides.md
-```
-
-If the user provides an existing outline, do not overwrite directly; read the existing `slides.md` first, then modify on top of it.
+If the user provides an existing outline, read the existing `slides.md` first, then modify on top of it.
 
 ### 4. Preview
-
-Run in the Slidev project directory:
 
 ```bash
 npx slidev slides.md
 ```
 
-If the project already provides custom scripts, you can also use the project's own `npm run dev`.
-
 ### 5. Export
-
-Navigate to the Slidev project directory, then run the export script. If the current directory does not yet have local Slidev dependencies, the script will automatically initialize the project directory and install project-level dependencies:
 
 ```bash
 node /path/to/slidev-ppt-generator/scripts/export.js --format pdf --output presentation.pdf
 ```
 
-Or use the Slidev CLI directly:
+Or directly: `npx slidev export --format pdf --output presentation.pdf`
 
-```bash
-npx slidev export --format pdf --output presentation.pdf
-npx slidev export --format pptx --output presentation.pptx
-npx slidev build --out dist
+## Visual Design Recipes
+
+**This is the most important section.** A deck without visual design is just a document. Follow these recipes.
+
+### Cover Page
+
+The cover page MUST have a background image. Use `layout: cover` with a `background` field. The theme automatically applies a dark overlay for text readability.
+
+```markdown
+---
+theme: seriph
+background: https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920
+class: text-center
+---
+
+# Building the Future of AI Agents
+
+Autonomous, local-first, and always available
+
+<div class="abs-br m-6 text-sm opacity-50">
+Author Name — March 2026
+</div>
 ```
 
-## Execution Requirements
+### How to Choose Background Images
 
-- Prefer working within an existing Slidev project; do not create temporary directories everywhere
-- Confirm the output path before generating to avoid overwriting the user's existing `slides.md`
-- Export tasks must be executed in a project directory that contains Slidev dependencies
-- If dependencies are missing, clearly tell the user what is missing; do not assume global tools are installed
-- If the user needs a formal deliverable, check the generated result at least once before exporting
+Use Unsplash direct URLs. Pick images by topic keyword:
+
+- **Tech/AI**: server rooms, circuit boards, abstract networks, code on screen
+- **Business**: modern offices, skylines, handshakes, conference rooms
+- **Nature/Growth**: forests, mountains, sunrise, green fields
+- **Data/Analytics**: dashboards, charts, abstract data visualization
+
+URL format: `https://images.unsplash.com/photo-{ID}?w=1920`
+
+Find image IDs at unsplash.com. Use specific photo IDs, not the random API (which is deprecated). Pick 3-5 images per deck and reuse them for visual consistency.
+
+For slides that need a background but not a photo, use CSS gradients:
+
+```markdown
+---
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)
+class: text-center text-white
+---
+```
+
+Or solid colors:
+
+```markdown
+---
+background: '#1a1a2e'
+class: text-white
+---
+```
+
+### Section Dividers
+
+Use `layout: section` or `layout: cover` with a background for chapter transitions. Never leave a section page as plain white text.
+
+```markdown
+---
+layout: section
+background: linear-gradient(135deg, #0c3547 0%, #1a6b8a 100%)
+class: text-white
+---
+
+# Architecture Deep Dive
+```
+
+### Content Pages with Visual Structure
+
+**Two-column with image** (apple-basic theme):
+
+```markdown
+---
+layout: image-right
+image: https://images.unsplash.com/photo-xxx?w=960
+---
+
+# Why Local-First Matters
+
+- Your data never leaves your machine
+- Full control over configuration
+- Works offline once set up
+- No recurring service fees
+```
+
+**Fact/statistic highlight**:
+
+```markdown
+---
+layout: fact
+---
+
+# 7 Agents
+Running simultaneously on a single gateway
+
+<br>
+
+# 5 Channels
+WhatsApp, Telegram, Discord, Feishu, DingTalk
+```
+
+**Quote page**:
+
+```markdown
+---
+layout: quote
+---
+
+# "The best AI assistant is the one you fully control."
+
+— Local-first design philosophy
+```
+
+**Statement page** (big idea, minimal text):
+
+```markdown
+---
+layout: statement
+---
+
+# Self-hosted means self-sovereign
+```
+
+### Card Grids with UnoCSS
+
+For feature lists, comparisons, or multi-item layouts, use HTML grid with UnoCSS classes instead of plain bullet lists:
+
+```markdown
+---
+---
+
+# Key Capabilities
+
+<div class="grid grid-cols-2 gap-6 mt-8">
+<div class="p-6 bg-gray-100 rounded-lg">
+  <h3 class="text-lg font-bold mb-2">Multi-Agent</h3>
+  <p class="text-sm opacity-75">Run multiple isolated AI personas on one server</p>
+</div>
+<div class="p-6 bg-gray-100 rounded-lg">
+  <h3 class="text-lg font-bold mb-2">Multi-Channel</h3>
+  <p class="text-sm opacity-75">WhatsApp, Telegram, Discord simultaneously</p>
+</div>
+<div class="p-6 bg-gray-100 rounded-lg">
+  <h3 class="text-lg font-bold mb-2">Local-First</h3>
+  <p class="text-sm opacity-75">All data stays on your hardware</p>
+</div>
+<div class="p-6 bg-gray-100 rounded-lg">
+  <h3 class="text-lg font-bold mb-2">Open Source</h3>
+  <p class="text-sm opacity-75">MIT licensed, community-driven</p>
+</div>
+</div>
+```
+
+For dark themes, use `bg-white/10` or `bg-gray-800` instead of `bg-gray-100`.
+
+### Architecture / Flow Diagrams
+
+**Mermaid diagrams do NOT render in PDF/PPTX export.** If the user needs PDF/PPTX output, do NOT use Mermaid. Instead:
+
+- Use ASCII-style text diagrams in code blocks
+- Use a card-grid layout to represent components
+- Use a visual flow with arrows (→) in styled HTML
+
+Example component architecture without Mermaid:
+
+```markdown
+---
+---
+
+# System Architecture
+
+<div class="grid grid-cols-3 gap-4 mt-6 text-center">
+<div class="p-4 bg-blue-100 rounded-lg border-2 border-blue-300">
+  <div class="text-xs opacity-50 mb-1">INPUT</div>
+  <div class="font-bold">Chat Channels</div>
+  <div class="text-xs mt-1">WhatsApp · Telegram · Discord</div>
+</div>
+<div class="p-4 bg-green-100 rounded-lg border-2 border-green-300">
+  <div class="text-xs opacity-50 mb-1">CORE</div>
+  <div class="font-bold">Gateway</div>
+  <div class="text-xs mt-1">Routing · Sessions · Auth</div>
+</div>
+<div class="p-4 bg-purple-100 rounded-lg border-2 border-purple-300">
+  <div class="text-xs opacity-50 mb-1">EXECUTION</div>
+  <div class="font-bold">AI Agents</div>
+  <div class="text-xs mt-1">Tools · Skills · Memory</div>
+</div>
+</div>
+
+<div class="text-center mt-4 text-2xl opacity-30">→ → →</div>
+```
+
+### Closing Page
+
+The closing page should have a background (same as cover or complementary). Never end with plain white.
+
+```markdown
+---
+layout: cover
+background: https://images.unsplash.com/photo-xxx?w=1920
+class: text-center
+---
+
+# Thank You
+
+Questions?
+
+<div class="abs-br m-6 text-sm opacity-50">
+author@email.com · github.com/username
+</div>
+```
+
+## Theme Selection
+
+Prefer official themes. Recommended mapping:
+
+- `technical` → `default` (dark code-friendly, good for tech shares)
+- `formal` → `seriph` (elegant serif fonts, good for business)
+- `executive` → `seriph` (same, emphasize conclusions)
+- `launch` → `apple-basic` (clean, image-heavy layouts)
+
+### Global Frontmatter Template
+
+Always include these fields in the first slide's frontmatter:
+
+```yaml
+---
+theme: seriph
+background: https://images.unsplash.com/photo-{ID}?w=1920
+highlighter: shiki
+lineNumbers: false
+colorSchema: light
+title: Your Presentation Title
+---
+```
+
+- `colorSchema`: use `light` for most business/formal decks; `dark` only for technical/code-heavy decks
+- `lineNumbers: false` unless the deck is specifically about code
+- Always set a `background` on the first slide
 
 ## Design Requirements
 
-- Do not produce "hollow title page + generic slogan + placeholder bullet" template decks
-- One page, one main conclusion. Prefer a compact 8-14 page deck rather than splitting synonymous content across many empty pages
-- Every deck should first establish a clear visual direction, then execute layouts; do not just apply the default black-on-white template
-- The cover page must include a clear title, subtitle, and context positioning; it cannot just be stacked text
-- Body pages should prioritize one of the following structures:
-  - Problem / Cost / Opportunity
-  - Architecture / Layers / Data Flow
-  - Scenario / Role / Result
-  - Comparison / Advantage / Action Recommendation
-- Include at least 1 page with genuine information density (architecture page), 1 scenario page, and 1 value comparison page
-- Avoid information-free "What is X?" standalone title pages unless the next page immediately follows up with a core conclusion
-- Avoid multiple consecutive pages with just a single slogan; limit tagline pages to 1-2 at most
-- Copy should be specific -- use real nouns, platform names, module names, capability names; avoid filling everything with abstract adjectives
-- If the topic is tech or product-related, prioritize making the content look like a "ready-to-present" formal share, not an AI auto-summary
-- Prefer native Markdown structures and Slidev layouts; do not abuse raw HTML for formatting convenience
-- Prefer Markdown tables; only consider HTML tables when Markdown tables clearly cannot express the content
-- If HTML tables are necessary, write the complete structure: `<table><thead>...<tbody>...</tbody></table>`; never place `<tr>` directly under `<table>`
-- For information comparison, prefer card grids, two-column layouts, or Markdown tables; do not cram an entire page into a single dense HTML table
+- **Every cover and section page MUST have a background** (image, gradient, or color). No plain white covers.
+- **At least 3 slides should use a non-default layout** (cover, section, fact, quote, statement, image-right, two-cols)
+- **At least 2 slides should have background images** from Unsplash
+- One page, one main conclusion. Prefer a compact 8-14 page deck
+- The cover page must include title, subtitle, and author/date
+- Include at least 1 architecture/structure page, 1 scenario page, 1 value page
+- Avoid consecutive bullet-list-only pages; alternate with visual layouts (fact, quote, image-right, card grid)
+- Copy should be specific — use real nouns, platform names, module names
+- Prefer Markdown tables over HTML tables
+- If HTML tables are necessary, always include `<thead>` and `<tbody>`
+- For comparisons, prefer card grids or two-column layouts over dense tables
 
-Before generating a formal presentation, you must read [references/presentation-design.md](references/presentation-design.md) and follow its density control, hierarchy, whitespace, and overflow rules.
+Before generating a formal presentation, you must read [references/presentation-design.md](references/presentation-design.md).
+
+## PDF/PPTX Export Caveats
+
+When the user needs PDF or PPTX output:
+
+- **Mermaid diagrams will NOT render** — use card grids or text-based diagrams instead
+- **External images must be accessible** — use full Unsplash URLs, not relative paths
+- **Animations/transitions are flattened** — do not rely on `v-click` for content structure
+- **Test with PDF first** before exporting PPTX — PDF is more reliable
+- `export.js` will auto-install `playwright-chromium` if missing
 
 ## Style Parameters
 
-Style parameters should be determined by the current task, not hard-coded into the skill. Before generating, determine or fill in which style this deck best matches:
+Determined by the current task, not hard-coded:
 
-- `formal`
-  Suitable for formal introductions, client communication, general company overviews. Visually restrained, stable structure, minimal decoration.
-- `executive`
-  Suitable for management reporting, proposal presentations, decision materials. Emphasizes conclusions, comparisons, and action recommendations.
-- `technical`
-  Suitable for tech shares, architecture walkthroughs, product capability descriptions. Allows higher information density, but hierarchy must be controlled.
-- `launch`
-  Suitable for launches, keynotes, brand-style presentations. Stronger visual impact is acceptable, but information clarity must not be sacrificed.
+- `formal` — Restrained, stable structure, minimal decoration. Use `seriph` theme, light color scheme, 1-2 Unsplash backgrounds.
+- `executive` — Emphasizes conclusions, comparisons, action items. Use `seriph`, light, fact/statement layouts for key numbers.
+- `technical` — Higher information density, code blocks OK. Use `default` theme, dark color scheme, more code examples.
+- `launch` — Stronger visual impact, more background images. Use `apple-basic`, light, image-heavy layouts (image-right, intro-image, 3-images).
 
-If the user does not specify, default to `formal`.
-If the user explicitly says "minimalist tech feel" or "more like a keynote", switch to `launch`.
-If the user explicitly says "architecture talk" or "tech share", prefer `technical`.
-
-## Official Theme Selection
-
-Prefer official themes; do not invent custom themes first. Recommended mapping:
-
-- `technical` -> `default`
-- `formal` -> `apple-basic`
-- `executive` -> `seriph`
-- `launch` -> `apple-basic`
-
-Only consider these when the user explicitly requests something more playful or visually experimental:
-
-- `bricks`
-- `shibainu`
-
-If the user directly specifies a theme name, prioritize the user's request; otherwise the skill should auto-select based on the mapping above.
-
-Do not search the web to "choose a theme". The official theme mapping is stable enough -- just follow the mapping directly.
+Default: `formal`. Switch based on user's explicit request.
 
 ## Language Parameter
 
-Language parameters should also be determined by the current task, not hard-coded into the skill:
+- `auto` — Follow the primary language of the user's current message
+- `zh` — Chinese deck
+- `en` — English deck
 
-- `auto`
-  Default value. Follow the primary language of the user's current message.
-- `zh`
-  Generate a Chinese deck. Suitable for Chinese reports, Chinese documentation, Chinese client communication.
-- `en`
-  Generate an English deck. Suitable for English introductions, international team communication, external-facing materials.
-
-If the user does not explicitly specify a language, do not force English; prefer `auto`.
+Do not force English if user does not specify.
 
 ## Post-Generation Checklist
 
-After completing `slides.md`, perform at least one round of layout self-review:
+After completing `slides.md`, verify:
 
-1. Are there any hollow title pages?
-2. Does any page carry multiple main conclusions?
-3. Does any single page have more than 6 main blocks?
-4. Are there obviously long paragraphs or overly tall cards?
-5. Do the last page, architecture page, or two-column pages have overflow risk?
-6. Is there mixed-language text or inconsistent terminology translation?
-7. Is there non-standard HTML, especially table structures missing `<thead>` / `<tbody>`?
+1. Does the cover page have a background image?
+2. Are there at least 2-3 non-default layouts used?
+3. Are there any plain-white section divider pages? (Fix: add gradient or image background)
+4. Are there more than 3 consecutive bullet-list pages? (Fix: insert a fact, quote, or image-right page)
+5. If targeting PDF export: are there any Mermaid diagrams? (Fix: replace with card grids)
+6. Does the closing page have a background?
+7. Does any single page have more than 6 main blocks?
+8. Is there overflow risk on the last page, architecture page, or two-column pages?
 
-If delivering PDF/PPTX, prefer exporting PDF first to check layout, then continue exporting other formats.
-
-## Common Errors and Handling
+## Common Errors
 
 ### Slidev Not Found
 
-Run in the target project directory:
-
-```bash
-npx slidev --version
-```
-
-If it fails, the project does not have Slidev dependencies installed. Complete the Slidev project initialization or dependency installation first.
+Run `npx slidev --version` in the project directory. If it fails, run `node scripts/init-project.js --dir ~/slidev-ppt`.
 
 ### Export Failure
 
-Check the following first:
+Check: (1) current directory is a Slidev project, (2) `playwright-chromium` is installed, (3) `slides.md` can start in preview mode.
 
-1. Is the current directory a Slidev project directory?
-2. Is `playwright-chromium` installed?
-3. Can `slides.md` start successfully in preview mode?
+### Ugly Output
 
-### Invalid Theme or Page Count
-
-`generate.js` only accepts:
-
-- Style: `tech` / `product` / `report`
-- Pages: integer >= `3`
+If the exported deck looks like a plain text document: you forgot backgrounds, used only default layout, and didn't apply visual recipes. Go back to the Visual Design Recipes section and redo the slides.
 
 ## Expected Behavior After Triggering
 
-When the user says "help me make a PPT about OpenClaw introduction", execute in this order:
+When the user says "help me make a PPT about X":
 
 1. Confirm topic, style, page count, output target
-2. Check whether a Slidev project exists
-3. Generate or update `slides.md`
+2. Check/initialize Slidev project
+3. **Write a complete, visually designed `slides.md`** with backgrounds, varied layouts, and styled content — NOT a bullet-point outline
 4. Provide preview method
-5. When the user requests export, then execute export
+5. When the user requests export, execute export
 
-Do not just return a list of commands; actually push forward to the step of generating files, previewing, or exporting.
+Do not just return a list of commands; actually write the slides.md file.
