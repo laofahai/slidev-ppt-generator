@@ -63,7 +63,7 @@ function ensureDeps(projectDir, packages) {
     return;
   }
 
-  console.log(`📦 安装项目依赖：${missing.join(', ')}`);
+  console.log(`Installing dependencies: ${missing.join(', ')}`);
   execFileSync('npm', ['i', '-D', ...missing], {
     cwd: projectDir,
     stdio: 'inherit',
@@ -84,7 +84,7 @@ layout: cover
 
 # Slidev Presentation
 
-生成前请根据任务选择官方主题：
+Choose an official theme based on your task:
 
 - technical -> default
 - formal -> apple-basic
@@ -99,7 +99,7 @@ function main() {
   const options = parseArgs(process.argv.slice(2));
   const projectDir = path.resolve(options.dir);
 
-  console.log(`📁 项目目录：${projectDir}`);
+  console.log(`Project directory: ${projectDir}`);
   ensureDir(projectDir);
   ensurePackageJson(projectDir);
   const baseDeps = ['@slidev/cli'];
@@ -122,10 +122,10 @@ function main() {
 
   ensureSlides(projectDir);
 
-  console.log('✅ Slidev 项目已就绪');
+  console.log('Slidev project ready');
   console.log(`   - slides.md: ${path.join(projectDir, 'slides.md')}`);
   if (options.installAllOfficialThemes) {
-    console.log(`   - 官方主题: ${officialThemes.join(', ')}`);
+    console.log(`   - Official themes: ${officialThemes.join(', ')}`);
   }
 }
 
