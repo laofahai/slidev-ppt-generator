@@ -20,15 +20,12 @@ jobs:
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
 
-      - name: Install ClawHub CLI
-        run: npm install -g @clawhub/cli
-
       - name: Authenticate and Publish
         env:
           CLAWHUB_TOKEN: ${{ secrets.CLAWHUB_TOKEN }}
         run: |
-          clawhub login --token $CLAWHUB_TOKEN
-          clawhub publish . \
+          npx -y @clawhub/cli login --token $CLAWHUB_TOKEN
+          npx -y @clawhub/cli publish . \
             --slug slidev-ppt-generator \
             --name "Slidev PPT Generator" \
             --version ${GITHUB_REF_NAME#v} \
